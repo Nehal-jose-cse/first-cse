@@ -1,0 +1,8 @@
+ch="y"
+total=0.0
+while ch=="y" or ch=="Y":
+    item_price=int(input("enter item pricee...="))
+    gst=int(input("enter gst="))
+    total=total+(item_price+(item_price*gst)/100)
+    ch=input("Do you wanna continue adding bills if yes press y or else press any other key to stop and get final value==")
+print("total amout to be paid=",total)

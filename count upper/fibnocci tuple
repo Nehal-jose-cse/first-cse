@@ -1,0 +1,7 @@
+n = int(input("Enter the number of terms: "))
+a, b = 0, 1
+f = ()
+for i in range(n):
+    f += (a,)
+    print(f)
+    a, b = b, a + b

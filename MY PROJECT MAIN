@@ -1,0 +1,121 @@
+import mysql.connector
+
+#CONNECTING THESQL & PYTHON..ITS THE FROND PAGE DO BALANCE TTO
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",          
+    password="MSA123",  
+    database="car_rental"
+)
+
+cursor = db.cursor()
+
+def add_car():
+    print("\n--- ADD NEW CAR ---")
+    car_id = int(input("Enter Car ID: "))
+    car_name = input("Enter Car Name: ")
+    rent = int(input("Enter Rent Per Day (₹): "))
+    
+    query = "INSERT INTO cars (car_id, car_name, rent_per_day, status) VALUES (%s, %s, %s, 'Available')"
+    values = (car_id, car_name, rent)
+    
+    cursor.execute(query, values)
+    db.commit()
+    print(" Car added successfully!")
+
+def view_cars():
+    print("\n--- AVAILABLE CARS ---")
+    query = "SELECT * FROM cars"
+    cursor.execute(query)
+    records = cursor.fetchall()
+    
+    print(f"{'Car ID':<10}{'Car Name':<20}{'Rent/Day':<12}{'Status':<15}")
+    print("-" * 57)
+    for row in records:
+        print(f"{row[0]:<10}{row[1]:<20}{row[2]:<12}{row[3]:<15}")
+
+def rent_car():
+    print("\n--- RENT A CAR ---")
+    cust_name = input("Enter Customer Name: ")
+    car_id = int(input("Enter Car ID to Rent: "))
+    days = int(input("Enter Number of Days: "))
+    
+    
+    cursor.execute("SELECT rent_per_day, status FROM cars WHERE car_id = %s", (car_id,))
+    car = cursor.fetchone()
+    
+    if car is None:
+        print("...... Car ID not found!")
+    elif car[1] == 'Rented':
+        print("........ Sorry... this car is currently already rented out!")
+    else:
+        rent_per_day = car[0]
+        total_bill = rent_per_day * days
+        
+        
+        rental_query = "INSERT INTO rentals (customer_name, car_id, days, total_bill) VALUES (%s, %s, %s, %s)"
+        cursor.execute(rental_query, (cust_name, car_id, days, total_bill))
+        
+        
+        cursor.execute("UPDATE cars SET status = 'Rented' WHERE car_id = %s", (car_id,))
+        
+        db.commit()
+        print(f"\nCar Rented Successfully!")
+        print(f" Total Bill Amount for {cust_name}: ₹{total_bill}")
+
+def return_car():
+    print("\n--- RETURN A CAR ---")
+    car_id = int(input("Enter Car ID to Return: "))
+    
+    cursor.execute("SELECT status FROM cars WHERE car_id = %s", (car_id,))
+    car = cursor.fetchone()
+    
+    if car is None:
+        print(" Car ID not found!")
+    elif car[0] == 'Available':
+        print("This car is already marked as available!")
+    else:
+        cursor.execute("UPDATE cars SET status = 'Available' WHERE car_id = %s", (car_id,))
+        db.commit()
+        print(" Car returned successfully!")
+
+def view_rentals():
+    print("\n--- ALL RENTAL RECORDS ---")
+    cursor.execute("SELECT * FROM rentals")
+    records = cursor.fetchall()
+    
+    print(f"{'Rental ID':<12}{'Customer':<20}{'Car ID':<10}{'Days':<8}{'Total Bill':<12}")
+    print("-" * 62)
+    for row in records:
+        print(f"{row[0]:<12}{row[1]:<20}{row[2]:<10}{row[3]:<8}₹{row[4]:<12}")
+
+
+while True:
+    print("\n" + "="*35)
+    print("  CAR RENTAL MANAGEMENT SYSTEM")
+    print("="*35)
+    print("1. View All Cars")
+    print("2. Add New Car")
+    print("3. Rent a Car")
+    print("4. Return a Car")
+    print("5. View Rental History")
+    print("6. Exit")
+    
+    choice = input("\nEnter your choice (1-6): ")
+    
+    if choice == '1':
+        view_cars()
+    elif choice == '2':
+        add_car()
+    elif choice == '3':
+        rent_car()
+    elif choice == '4':
+        return_car()
+    elif choice == '5':
+        view_rentals()
+    elif choice == '6':
+        print("\nThank you for using the Car Rental System!")
+        db.close()
+        break
+    else:
+        print(" Invalid Choice! Please choose between 1 and 6.")

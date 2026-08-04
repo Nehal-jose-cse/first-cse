@@ -1,0 +1,1984 @@
+import mysql.connector as conn
+mydb=conn.connect(host='localhost',user='root',password='sdaaaj',database='rentalcar')
+mycursor=mydb.cursor()
+
+#SUZUKI
+def suzuki():
+    mycursor.execute("create table if not exists suzuki(car_id int primary key,Model  varchar(30),registration_no varchar(30),Status varchar(30))")
+    print("table is created")
+
+def insert_suzuki():
+    n=int(input("Enter the number of record"))
+    for  i in range (n):
+       car_id= int(input("Enter the Car id"))
+       model=input("enter the model name")
+       regi=input("enter the registration number")
+       st=input("Enter the status")
+       mycursor.execute("insert into suzuki values('"+str(car_id)+"','"+model+"','"+regi+"','"+st+"')")
+       mydb.commit()
+
+def display_suzuki():
+    mycursor.execute("Select* from suzuki")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-------------------------SUZUKI-------------------------")
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def search_suzuki():
+    r=int(input("Enter the Car_id to be searched"))
+    mycursor.execute("select * from suzuki where car_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def update_suzuki():
+    while True:
+        print("TO UPDATE")
+        r=int(input("enter the car id"))
+        mycursor.execute("Select* from suzuki")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==r:
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print("Car_id\t  Modele\tRegistration_no\tStatus ")
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("customer id does not exist")
+            return
+        print("1.Model\n2.Registration\n3.Status\n4.All\n5.Exit\n")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            mo=input("Enter the new model ")
+            mycursor.execute("update suzuki set model ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            mo=input("Enter the new Registration_no ")
+            mycursor.execute("update suzuki set Registration_no ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            mo=input("Enter the new Status ")
+            mycursor.execute("update suzuki set Status ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            mo=input("Enter the new model ")
+            n=input("enter new registration")
+            j=input("Enter the new status")
+            mycursor.execute("update suzuki set model ='{}',registration_no='{}',Status ='{} 'where car_id={}".format(mo,n,j,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            pass
+        else:
+            print("Invalid choice")
+        ch=input("Do you want to continue(Y/N)")
+        if ch=='n' or ch=='N':
+                break
+
+def delete_suzuki():
+      r=int(input("Enter the car_id to be deleted"))
+      mycursor.execute("Select* from suzuki")
+      data=mycursor.fetchall()
+      f=0
+      for i in data:
+          if i[0]==r:
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print("Car_id\t  Modele\tRegistration_no\tStatus ")
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+              print("\n")
+              f=1
+              break
+      if f==0:
+          print("Car id does not exist")
+          return
+      mycursor.execute("delete from suzuki where car_id={}".format(r))
+      if mycursor.rowcount==0:
+            print("no such record...try again")
+            return
+      print(mycursor.rowcount,"record deleted")
+      mydb.commit()
+
+#HYUNDAI
+
+def Hyundai():
+    mycursor.execute("create table if not exists Hyundai(car_id int primary key,Model  varchar(30),registration_no varchar(30),Status varchar(30))")
+    print("table is created")
+
+def insert_Hyundai():
+    n=int(input("Enter the number of record"))
+    for  i in range (n):
+       car_id= int(input("Enter the Car id"))
+       model=input("enter the model name")
+       regi=input("enter the registration number")
+       st=input("enter the status ")
+       mycursor.execute("insert into Hyundai values('"+str(car_id)+"','"+model+"','"+regi+"','"+st+"')")
+       mydb.commit()
+
+
+def display_Hyundai():
+    mycursor.execute("Select* from Hyundai")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-------------------------HYUNDAI-------------------------")
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def search_Hyundai():
+    r=int(input("Enter the Car_id to be searched"))
+    mycursor.execute("select * from Hyundai where car_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def update_Hyundai():
+    while True:
+        print("TO UPDATE")
+        r=int(input("enter the car id"))
+        mycursor.execute("Select* from Hyundai")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==r:
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print("Car_id\t  Modele\tRegistration_no\tStatus ")
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("customer id does not exist")
+            return
+        print("1.Model\n2.Registration\n3.Status\n4.All\n5.Exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            mo=input("Enter the new model ")
+            mycursor.execute("update Hyundai set model ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            mo=input("Enter the new Registration_no ")
+            mycursor.execute("update Hyundai set Registration_no ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            mo=input("Enter the new Status ")
+            mycursor.execute("update Hyundai Status ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            mo=input("Enter the new model ")
+            n=input("enter new registration")
+            j=input("Enter the new status")
+            mycursor.execute("update Hyundai set model ='{}',registration_no='{}',Status ='{} 'where car_id={}".format(mo,n,j,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+                pass
+        else:
+            print("Invalid choice")
+        ch=input("Do you want to continue(Y/N)")
+        if ch=='n' or ch=='N':
+                break
+
+def delete_Hyundai():
+      r=int(input("Enter the car_id to be deleted"))
+      mycursor.execute("Select* from Hyundai")
+      data=mycursor.fetchall()
+      f=0
+      for i in data:
+          if i[0]==r:
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print("Car_id\t  Modele\tRegistration_no\tStatus ")
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+              print("\n")
+              f=1
+              break
+      if f==0:
+          print("Car id does not exist")
+          return
+      mycursor.execute("delete from Hyundai where car_id={}".format(r))
+      if mycursor.rowcount==0:
+            print("no such record...try again")
+            return
+      print(mycursor.rowcount,"record deleted")
+      mydb.commit()
+#TOYOTA
+
+def Toyota():
+    mycursor.execute("create table if not exists Toyota(car_id int primary key,Model  varchar(30),registration_no varchar(30),Status varchar(30))")
+    print("table is created")
+
+def insert_Toyota():
+    n=int(input("Enter the number of record"))
+    for  i in range (n):
+       car_id= int(input("Enter the Car id"))
+       model=input("enter the model name")
+       regi=input("enter the registration number")
+       st=input("enter the status ")
+       mycursor.execute("insert into Toyota values('"+str(car_id)+"','"+model+"','"+regi+"','"+st+"')")
+       mydb.commit()
+
+def display_toyota():
+    mycursor.execute("Select* from toyota")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-------------------------TOYOTA-------------------------")
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def search_toyota():
+    r=int(input("Enter the Car_id to be searched"))
+    mycursor.execute("select * from toyota where car_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def update_toyota():
+    while True:
+        print("TO UPDATE")
+        r=int(input("enter the car id"))
+        mycursor.execute("Select* from toyota")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==r:
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print("Car_id\t  Modele\tRegistration_no\tStatus ")
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("customer id does not exist")
+            return
+        print("1.Model\n2.Registration\n3.Status\n4.All\n5.Exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            mo=input("Enter the new model ")
+            mycursor.execute("update toyota set model ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            mo=input("Enter the new Registration_no ")
+            mycursor.execute("update toyota set Registration_no ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            mo=input("Enter the new Status ")
+            mycursor.execute("update toyota set Status ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            mo=input("Enter the new model ")
+            n=input("enter new registration")
+            j=input("Enter the new status")
+            mycursor.execute("update toyota set model ='{}',registration_no='{}',Status ='{} 'where car_id={}".format(mo,n,j,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            pass
+        else:
+            print("Invalid choice")
+        ch=input("Do you want to continue(Y/N)")
+        if ch=='n' or ch=='N':
+                break
+
+def delete_Toyota():
+      r=int(input("Enter the car_id to be deleted"))
+      mycursor.execute("Select* from Toyota")
+      data=mycursor.fetchall()
+      f=0
+      for i in data:
+          if i[0]==r:
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print("Car_id\t  Modele\tRegistration_no\tStatus ")
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+              print("\n")
+              f=1
+              break
+      if f==0:
+          print("Car id does not exist")
+          return
+      mycursor.execute("delete from toyota where car_id={}".format(r))
+      if mycursor.rowcount==0:
+            print("no such record...try again")
+            return
+      print(mycursor.rowcount,"record deleted")
+      mydb.commit()
+
+#VOLKSWAGEN
+
+def volkswagen():
+    mycursor.execute("create table if not exists volkswagen(car_id int primary key,Model  varchar(30),registration_no varchar(30),Status varchar(30))")
+    print("table is created")
+
+def insert_volkswagen():
+    n=int(input("Enter the number of record"))
+    for  i in range (n):
+       car_id= int(input("Enter the Car id"))
+       model=input("enter the model name")
+       regi=input("enter the registration number")
+       st=input("enter the status ")
+       mycursor.execute("insert into volkswagen values('"+str(car_id)+"','"+model+"','"+regi+"','"+st+"')")
+       mydb.commit()
+
+def display_volkswagen():
+    mycursor.execute("Select* from volkswagen")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-------------------------VOLKSWAGEN-------------------------")
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def search_volkswagen():
+    r=int(input("Enter the Car_id to be searched"))
+    mycursor.execute("select * from volkswagen where car_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def update_volkswagen():
+    while True:
+        print("TO UPDATE")
+        r=int(input("enter the car id"))
+        mycursor.execute("Select* from volkswagen")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==r:
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print("Car_id\t  Modele\tRegistration_no\tStatus ")
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("customer id does not exist")
+            return
+        print("1.Model\n2.Registration\n3.Status\n4.All\n5.Exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            mo=input("Enter the new model ")
+            mycursor.execute("update volkswagen set model ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            mo=input("Enter the new Registration_no ")
+            mycursor.execute("update volkswagen set Registration_no ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            mo=input("Enter the new Status ")
+            mycursor.execute("update volkswagenset Status ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            mo=input("Enter the new model ")
+            n=input("enter new registration")
+            j=input("Enter the new status")
+            mycursor.execute("update volkswagen set model ='{}',registration_no='{}',Status ='{} 'where car_id={}".format(mo,n,j,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            pass
+        else:
+            print("Invalid choice")
+        ch=input("Do you want to continue(Y/N)")
+        if ch=='n' or ch=='N':
+                break
+
+def delete_volkswagen():
+      r=int(input("Enter the car_id to be deleted"))
+      mycursor.execute("Select* from volkswagen")
+      data=mycursor.fetchall()
+      f=0
+      for i in data:
+          if i[0]==r:
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print("Car_id\t  Modele\tRegistration_no\tStatus ")
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+              print("\n")
+              f=1
+              break
+      if f==0:
+          print("Car id does not exist")
+          return
+      mycursor.execute("delete from volkswagen where car_id={}".format(r))
+      if mycursor.rowcount==0:
+            print("no such record...try again")
+            return
+      print(mycursor.rowcount,"record deleted")
+      mydb.commit()
+
+#BMW
+
+def Bmw():
+    mycursor.execute("create table if not exists Bmw(car_id int primary key,Model  varchar(30),registration_no varchar(30),Status varchar(30))")
+    print("table is created")
+
+def insert_Bmw():
+    n=int(input("Enter the number of record"))
+    for  i in range (n):
+       car_id= int(input("Enter the Car id"))
+       model=input("enter the model name")
+       regi=input("enter the registration number")
+       st=input("enter the status ")
+       mycursor.execute("insert into Bmw values('"+str(car_id)+"','"+model+"','"+regi+"','"+st+"')")
+       mydb.commit()
+
+def display_Bmw():
+    mycursor.execute("Select* from Bmw")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("--------------------------BMW-------------------------")
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def search_bmw():
+    r=int(input("Enter the Car_id to be searched"))
+    mycursor.execute("select * from bmw where car_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------")
+        print("|  Car_id  |  Model  |  Registration_no  |  Status  |")
+        print("-----------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3])
+
+def update_Bmw():
+    while True:
+        print("TO UPDATE")
+        r=int(input("enter the car id"))
+        mycursor.execute("Select* from Bmw")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==r:
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print("Car_id\t  Modele\tRegistration_no\tStatus ")
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("customer id does not exist")
+            return
+        print("1.Model\n2.Registration\n3.Status\n4.All\n5.Exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            mo=input("Enter the new model ")
+            mycursor.execute("update Bmw set model ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            mo=input("Enter the new Registration_no ")
+            mycursor.execute("update Bmw set Registration_no ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            mo=input("Enter the new Status ")
+            mycursor.execute("update Bmw set Status ='{} 'where car_id={}".format(mo,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            mo=input("Enter the new model ")
+            n=input("enter new registration")
+            j=input("Enter the new status")
+            mycursor.execute("update Bmw set model ='{}',registration_no='{}',Status ='{} 'where car_id={}".format(mo,n,j,r))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            pass
+        else:
+            print("Invalid choice")
+        ch=input("Do you want to continue(Y/N)")
+        if ch=='n' or ch=='N':
+            break
+
+def delete_BMW():
+      r=int(input("Enter the car_id to be deleted"))
+      mycursor.execute("Select* from Bmw")
+      data=mycursor.fetchall()
+      f=0
+      for i in data:
+          if i[0]==r:
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print("Car_id\t  Modele\tRegistration_no\tStatus ")
+              print("-----------------------------------------------------------------------------------------------------------------------------")
+              print(i[0],'\t  ',i[1],'\t    ',i[2],'\t      ',i[3])
+              print("\n")
+              f=1
+              break
+      if f==0:
+          print("Car id does not exist")
+          return
+      mycursor.execute("delete from BMW where car_id={}".format(r))
+      if mycursor.rowcount==0:
+            print("no such record...try again")
+            return
+      print(mycursor.rowcount,"record deleted")
+      mydb.commit()
+
+#CUSTOMERS
+
+def Customer_detial():
+    mycursor.execute("create table if not exists customers(customer_id int primary key,name varchar(30),e_mail varchar(30),phone_no varchar(30), Age int ,driving_license_no varchar(30))")
+    print("table is created")
+
+def Customer_insert():
+    while True:
+        import random
+        m=random.randint(999,9999)
+        n=input("Enter the name")
+        e=input("Enter the E-mail ")
+        ph=input('Enter the Phone No ')
+        age=int(input("Enter your age"))
+        do=input("Enter the Driving license No")
+        try:
+            mycursor.execute("insert into customers values('"+str(m)+"','"+n+"','"+e+"','"+str(ph)+"','"+str(age)+"','"+do+"')")
+            print("|------------------------------|")
+            print("       CUSTOMER_ID    ")
+            print("|-----------------------------|")
+            print('               ',m,)
+            print("|-----------------------------|")
+            print("WE REQUEST YOU TO KEEP YOUR CUSTOMER ID HANDY FOR ALL FUTURE PROCESSES.")
+            mydb.commit()
+            break
+        except Exception as e:
+            print("SIGN IN FAILED:", e)
+            retry = input("Do you want to Continue (Y/N): ")
+            if retry== 'n' or retry== 'N'  :
+                break
+
+            
+
+def customer_Display():
+    mycursor.execute("Select* from customers")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("\t\tCUSTOMERS")
+        print("----------------------------------------------------------------------------------------------------------------------")
+        print("|    Customer_id    |    Name    |     E-mail     |    phone no    |     Age    |      Driving_license_No   |")
+        print("-----------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+            print('      ',i[0],'           ',i[1],'         ',i[2],'              ',i[3],'              ',i[4],'         ',i[5],)
+
+def customer_serach():
+    print("to serach")
+    r=int(input("Enter the Customer_id to be searched"))
+    mycursor.execute("select * from customers where customer_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("----------------------------------------------------------------------------------------------")
+        print("|    Customer_id    |    Name    |     E-mail     |    phone no    |     Age    |      Driving_license_No   |")
+        print("----------------------------------------------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3],'\t',i[4],'\t',i[5])
+
+def customer_update():
+    while True:
+        print("To Update ")
+        cust=int(input("Enter the Customer_id"))
+        mycursor.execute("Select* from customers")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+           if i[0]==cust:
+             print("-----------------------------------------------------------------------------------------------------------------------------")
+             print("Customer_id\t  Name\t       E-mail\t     Phone_No\tAge\tDriving_license_No ")
+             print("-----------------------------------------------------------------------------------------------------------------------------")
+             print(i[0],'\t\t  ',i[1],'\t    ',i[2],'\t      ',i[3],"\t",i[4],'\t    ',i[5])
+             print("\n")
+             f=1
+             break
+        if f==0:
+             print("customer id does not exist")
+             return
+        print("1.Name\n2.E-mail\n3.phone no\n4.age\n5.Driving license no\n6.All\n7.exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            na=input("Enter the New name")
+            mycursor.execute("update customers set name='{}' where customer_id={}".format(na,cust))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            e=input("Enter New E-mail")
+            mycursor.execute("update customers set e_mail='{}' where customer_id={}".format(e,cust))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            ph=input("Enter New Phone_no")
+            mycursor.execute("update customers set phone_no='{}' where customer_id={}".format(ph,cust))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            e=int(input("Enter New Age"))
+            mycursor.execute("update customers set age='{}' where customer_id={}".format(e,cust))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            n=int(input("Enter New Driving license no "))
+            mycursor.execute("update customers set Driving_license_no='{}' where customer_id={}".format(n,cust))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==6:
+            na=input("Enter the New name")
+            e=input("Enter New E-mail")
+            ph=input("Enter New Phone_no")
+            eg=int(input("Enter New Age"))
+            n=int(input("Enter New Driving license no "))
+            mycursor.execute("update customers set name='{}',e_mail='{}',phone_no='{}',age='{}',Driving_license_no='{}' where customer_id={}".format(na,e,ph,eg,n,cust))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==7:
+            pass
+        else:
+            print("Invalid Choice")
+        c=input(" Enter Do you want to continue(Y/N)")
+        if c=='n'or c=='N':
+             break
+
+def customer_delete():
+    print("To delete")
+    cust=int(input("Enter the Customer_id"))
+    mycursor.execute("Select* from customers")
+    data=mycursor.fetchall()
+    f=0
+    for i in data:
+        if i[0]==cust:
+            print("-----------------------------------------------------------------------------------------------------------------------------")
+            print("Customer_id\t  Name\t       E-mail\t     Phone_No\tAge\tDriving_license_No ")
+            print("-----------------------------------------------------------------------------------------------------------------------------")
+            print(i[0],'\t\t  ',i[1],'\t    ',i[2],'\t      ',i[3],"\t",i[4],'\t    ',i[5])
+            print("\n")
+            f=1
+            break
+    if f==0:
+       print("customer id does not exist")
+       return
+    r=int(input("Enter the customer id to Delete"))
+    mycursor.execute("delete from customers where customer_id={}".format(r))
+    if mycursor.rowcount==0:
+        print("no such record...try again")
+        return
+    print(mycursor.rowcount,"record deleted")
+    mydb.commit()
+
+def customer_verify():
+    print("Login To Your Account")
+    r=int(input("Enter the Customer_id "))
+    mycursor.execute("select * from customers where customer_id={}".format(r))
+    data=mycursor.fetchall()
+    if  not data:
+        print("No record found")
+        print("Do you want to Sign IN  ")
+        go=input("Enter  Choice(Y/N)")
+        if go=='n' or go=='N':
+            print("Exiting without signing in.\n")
+        else:
+            Customer_insert()
+            attempts = 1
+            return attempts
+            
+    else:
+        print("----------------------------------------------------------------------------------------------------------------------")
+        print("|    Customer_id    |    Name    |     E-mail     |    phone no    |     Age    |      Driving_license_No   |")
+        print("----------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+            print('    ',i[0],'\t','  ',i[1],'\t','    ',i[2],'\t','  ',i[3],'\t',i[4],'\t',i[5])
+        attempts = 1
+        return attempts
+
+#RENT
+
+def rent_car():    
+    mycursor.execute("create table if not exists rent(rent_id int primary key,car_id int,customer_id int,rental_date date,return_date date,Time time,drop_off_place varchar(30))")
+    print(" TABLE IS CREATED")
+
+def rent_insert1():
+    while True:
+        import random
+        code=random.randint(999,10000)
+        cust=int(input("customer id"))
+        mycursor.execute("Select* from customers")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==cust:
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print("Customer_id\t  Name\t       E-mail\t     Phone_No\tAge\tDriving_license_No ")
+                print("-----------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t\t  ',i[1],'\t    ',i[2],'\t      ',i[3],"\t",i[4],'\t    ',i[5])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("customer id does not exist")
+            print("Do you want to Create an account(Y/N)")
+            to=input("Enter your Choice")
+            if to=='n' or to=='N':
+                return
+            else:
+                Customer_insert()
+        car=int(input("car id"))
+        rentdate=input("enter rent date(ENTER IN FORMAT YYYY,MM,DD)")
+        returndate=input("enter your return date(ENTER IN FORMAT YYYY,MM,DD)")
+        t=input("Enter the time of drop-off(ENTER IN FORMAT HH:MM:SS)")
+        drop=input("Enter the place to Drop-off the car")
+        try:
+            mycursor.execute("insert into rent values('"+str(code)+"','"+str(car)+"','"+str(cust)+"','"+(rentdate)+"','"+(returndate)+"','"+(t)+"','"+drop+"')")
+            print("|-----------------|")
+            print("     RENT_ID   ")
+            print("|-----------------|")
+            print('      ',code,)
+            print("|-----------------|")
+            mydb.commit()
+            print("WE REQUEST YOU TO KEEP YOUR RENT ID HANDY FOR ALL FUTURE PROCESSES.")
+            print("FOR ANY FURTHER UPDATES OR CANCELLATIONS, PLEASE CONTACT CUSTOMER CARE")
+            break
+        except Exception as e:
+            print("UNABLE TO RENT THE CAR:", e)
+            retry = input("Do you want to Continue (Y/N): ")
+            if retry== 'n' or retry== 'N'  :
+                break
+
+def rent_Display():
+    mycursor.execute("Select* from rent")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("\t\tRENT")
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t  Time\t\tdrop_off_place ")
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+             print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6])
+
+def rent_serach():
+    print("to serach")
+    r=int(input("Enter the rent_id to be searched"))
+    mycursor.execute("select * from rent where rent_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t  Time\t\tdrop_off_place ")
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+             print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6])
+
+def rent_update():
+    while True:
+        print("To Update ")
+        z=int(input("Enter the rent ID "))
+        mycursor.execute("Select* from rent")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==z:
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+                print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t  Time\t\tdrop_off_place ")
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6])
+                print("\n")
+                f=1
+                break
+        if f==0:
+           print("Rent Id does not exist")
+           return
+        print("1.car_id\n2.customer_id\n3.rental_date\n4.return_date\n5.time\n6.drop_off_place\n7.All\n8.exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            na=input("Enter the New car_id")
+            mycursor.execute("update rent set car_id='{}' where rent_id={}".format(na,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            e=input("Enter New customer_id")
+            mycursor.execute("update rent  set customer_id='{}' where rent_id={}".format(e,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            ph=input("Enter New rental_date(ENTER IN FORMAT YYYY,MM,DD)")
+            mycursor.execute("update rent  set rental_date='{}' where rent_id={}".format(ph,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            e=input("Enter New return_date(ENTER IN FORMAT YYYY,MM,DD)")
+            mycursor.execute("update rent  set return_date='{}' where rent_id={}".format(e,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            n=input("Enter New time ")
+            mycursor.execute("update rent  set time='{}' where rent_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==6:
+            n=input("Enter New drop_off_place ")
+            mycursor.execute("update rent  set drop_off_place='{}' where rent_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==7:
+            na=input("Enter the New car_id")
+            e=input("Enter New customer_id")
+            ph=input("Enter New rental_date(ENTER IN FORMAT YYYY,MM,DD)")
+            eo=input("Enter New return_date(ENTER IN FORMAT YYYY,MM,DD)")
+            nt=input("Enter New time ")
+            nd=input("Enter New drop_off_place ")
+            mycursor.execute("update rent  set car_id='{}',customer_id='{}',rental_date='{}',return_date='{}',time='{}',drop_off_place='{}' where rent_id={}".format(na,e,ph,eo,nt,nd,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==8:
+            pass
+        else:
+            print("Invalid Choice")
+        c=input(" Enter Do you want to continue(Y/N)")
+        if c=='n'or c=='N':
+             break
+
+def rent_delete():
+    print("To delete")
+    r=int(input("Enter the rent id to Delete"))
+    mycursor.execute("Select* from rent")
+    data=mycursor.fetchall()
+    f=0
+    for i in data:
+        if i[0]==r:
+            print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+            print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t  Time\t\tdrop_off_place ")
+            print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6])
+            print("\n")
+            f=1
+            break
+    if f==0:
+        print("Rent Id does not exist")
+        return
+    mycursor.execute("delete from rent where rent_id={}".format(r))
+    if mycursor.rowcount==0:
+        print("no such record...try again")
+        return
+    print(mycursor.rowcount,"record deleted")
+    mydb.commit()
+
+#RETURN
+
+def retrun():
+    mycursor.execute("create table if not exists retrun(rent_id int primary key,car_id int,customer_id int,rental_date date,return_date date,actual_date_car_got_submitted date,Time time,Pick_up_place varchar(30))")
+    print(" TABLE IS CREATED")
+
+def retrun_insert():
+    while True:
+        z=int(input("Enter the rent ID "))
+        mycursor.execute("Select* from rent")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==z:
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+                print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t  Time\t\tdrop_off_place ")
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("Rent Id does not exist")
+            return
+        cust=int(input("Enter the Customer ID "))
+        car=int(input("Enter the Car ID"))
+        rentdate=input("enter rent date(ENTER IN FORMAT YYYY,MM.DD)")
+        returndate=input("enter your return date(ENTER IN FORMAT YYYY,MM,DD)")
+        actual=input("enter the date in which customer submitted the car(ENTER IN FORMAT YYYY,MM,DD)")
+        ti=input("Enter the time of Pick-Up(ENTER IN FORMAT HH:MM:SS)")
+        pick=input("Enter the place to Pick-Up  the car")
+        try:
+            mycursor.execute("insert into retrun values('"+str(z)+"','"+str(car)+"','"+str(cust)+"','"+str(rentdate)+"','"+str(returndate)+"','"+str(actual)+"','"+ti+"','"+pick+"')")
+            print("|-----------------|")
+            print("     RENT_ID   ")
+            print("|-----------------|")
+            print('      ',z,)
+            print("|-----------------|")
+            print("WE REQUEST YOU TO KEEP YOUR RENT ID HANDY FOR ALL FUTURE PROCESSES.")
+            print("FOR ANY FURTHER UPDATES OR CANCELLATIONS, PLEASE CONTACT CUSTOMER CARE")
+            mydb.commit()
+            break
+        except Exception as e:
+            print("THE CAR RETURN PROCESS FAILED:", e)
+            retry = input("Do you want to Continue (Y/N): ")
+            if retry== 'n' or retry== 'N'  :
+                break
+
+
+def retrun_Display():
+    mycursor.execute("Select* from retrun")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("\t\tRETRUN")
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t actual_date_car_got_submitted\t  Time\t\tdrop_off_place ")
+        print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t\t  ',i[6],'\t',i[7])
+
+def retrun_serach():
+    print("to serach")
+    r=input("Enter the rent_id to be searched")
+    mycursor.execute("select * from retrun where rent_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t actual_date_car_got_submitted\t  Time\t\tdrop_off_place ")
+        print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t\t  ',i[6],'\t',i[7])
+
+def retrun_update():
+     while True:
+        print("To Update ")
+        z=int(input("Enter the rent ID "))
+        mycursor.execute("Select* from retrun")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==z:
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+                print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t actual_date_car_got_submitted\t  Time\t\tdrop_off_place ")
+                print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'t\t  ',i[6],'\t',i[7])
+                print("\n")
+                f=1
+                break
+        if f==0:
+           print("Rent Id does not exist")
+           return
+        print("1.car_id\n2.customer_id\n3.rental_date\n4.return_date\n5.actual_date_car_got_submitted\n6.time\n7.Pick_Up_place\n8.All\n9.exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            na=input("Enter the New car_id")
+            mycursor.execute("update retrun set car_id='{}' where rent_id={}".format(na,z))
+            if mycursor.rowcount==0:
+                print("no such record..try again")
+                return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            e=input("Enter New customer_id")
+            mycursor.execute("update retrun  set customer_id='{}' where rent_id={}".format(e,z1))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            ph=input("Enter New rental_date(ENTER IN FORMAT YYYY,MM,DD)")
+            mycursor.execute("update retrun  set rental_date='{}' where rent_id={}".format(ph,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            e=input("Enter New return_date(ENTER IN FORMAT YYYY,MM,DD)")
+            mycursor.execute("update retrun  set return_date='{}' where rent_id={}".format(e,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            e=input("Enter New actual_date_car_got_submitted(ENTER IN FORMAT YYYY,MM,DD)")
+            mycursor.execute("update retrun  set actual_date_car_got_submitted='{}' where rent_id={}".format(e,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==6:
+            n=input("Enter New time ")
+            mycursor.execute("update retrun  set time='{}' where rent_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==7:
+            n=input("Enter New Pick_Up_place ")
+            mycursor.execute("update retrun  set pick_up_place='{}' where rent_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==8:
+            na=input("Enter the New car_id")
+            e=input("Enter New customer_id")
+            ph=input("Enter New rental_date(ENTER IN FORMAT YYYY,MM,DD)")
+            eo=input("Enter New return_date(ENTER IN FORMAT YYYY,MM,DD)")
+            ea=input("Enter New actual_date_car_got_submitted(ENTER IN FORMAT YYYY,MM,DD)")
+            nt=input("Enter New time ")
+            nd=input("Enter New Pick_Up_place ")
+            mycursor.execute("update retrun  set car_id='{}',customer_id='{}',rental_date='{}',return_date='{}',actual_date_car_got_submitted='{}',time='{}',pick_up_place='{}' where rent_id={}".format(na,e,ph,eo,ea,nt,nd,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==9:
+            pass
+        else:
+            print("Invalid Choice")
+        c=input(" Enter Do you want to continue(Y/N)")
+        if c=='n'or c=='N':
+             break
+
+def retrun_delete():
+    print("To delete")
+    z=int(input("Enter the rent ID to be delete "))
+    mycursor.execute("Select* from retrun")
+    data=mycursor.fetchall()
+    f=0
+    for i in data:
+        if i[0]==z:
+            print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+            print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\t actual_date_car_got_submitted\t  Time\t\tdrop_off_place ")
+            print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'t\t  ',i[6],'\t',i[7])
+            print("\n")
+            f=1
+            break
+    if f==0:
+        print("Rent Id does not exist")
+        return
+    mycursor.execute("delete from retrun where rent_id={}".format(z))
+    if mycursor.rowcount==0:
+        print("no such record...try again")
+        return
+    print(mycursor.rowcount,"record deleted")
+    mydb.commit()
+
+#PAYMENT
+
+def payment():
+    mycursor.execute("create table if not exists payment(payment_id int primary key,rent_id int,customer_id int,amount int,fine int,Total_amount int,payment_method varchar(30),payment_date date)")
+    print(" TABLE IS CREATED")
+
+def date_r():
+    from datetime import date
+    a=tuple(eval(input("enter the rent date(ENTER IN FORMAT YYYY,MM.DD)")))
+    b=tuple(eval(input("enter the return date(ENTER IN FORMAT YYYY,MM.DD)")))
+    c=tuple(eval(input("enter the actual return date(ENTER IN FORMAT YYYY,MM.DD)")))
+    dat1=date(*a)
+    dat2=date(*b)
+    dat3=date(*c)
+    dif=dat2-dat1
+    diff=dat2-dat3
+    h=dif.days
+    j=diff.days
+    return h,j
+def payment_insert():
+    while True:
+        import random
+        code=random.randint(999,10000)
+        z=int(input("Enter the rent ID "))
+        mycursor.execute("Select* from retrun")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==z:
+                print("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+                print("Rent_id\tCar_id\tCustomer_id\trental_date\treturn_date\tactual_date_car_got_submitted\t   Time\t\tPick_up_place ")
+                print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t\t',i[5],'\t\t',i[6],'\t',i[7])
+                print("\n")
+                f=1
+                break
+        if f==0:
+            print("Rent Id does not exist")
+            return
+        cut=int(input("customer id"))
+        u,h=date_r()
+        amt=u*1000
+        if h<=1:
+            fine=abs(h)*1500
+        else:
+            fine=0
+        tot_amt=amt+fine
+        print("1.Cash\n2.Net Banking\n3.Check\n4.Credit Card \n5.Debit Card\n6.UPI")
+        ch=int(input("Enter the chocie(1-6)"))
+        if ch==1:
+            py="Cash"
+        elif ch==2:
+            py="Net Banking"
+        elif ch==3:
+            py="Check"
+        elif ch==4:
+            py="Credit Card"
+        elif ch==5:
+            py="Debit Card"
+        elif ch==6:
+            py='UPI'
+        else:
+            print("Invalid Choice")
+        dat=input("Enter the of payament date(ENTER IN FORMAT YYYY-MM-DD)")
+        try:
+            mycursor.execute("insert into payment values('"+str(code)+"','"+str(z)+"','"+str(cut)+"','"+str(amt)+"','"+str(fine)+"','"+str(tot_amt)+"','"+py+"','"+dat+"')")
+            print("-----------------------------------------------------------------------------------------------------------------------------------------")
+            print("     PAYMENT_ID    CUSTOMER_ID    AMOUNT   FINE   TOTAL_AMOUNT  PAYMENT_METHOD   PAYMENT_DATE ")
+            print("------------------------------------------------------------------------------------------------------------------------------------------")
+            print('          ',code,'             ',cut,'                ',amt,'         ',fine,'        ',tot_amt,'                  ',py,'                ',dat )
+            print("-------------------------------------------------------------------------------------------------------------------------------------------")
+            print("WE REQUEST YOU TO KEEP YOUR PAYMENT ID HANDY FOR ALL FUTURE PROCESSES.")
+            print("FOR ANY FURTHER UPDATES OR CANCELLATIONS, PLEASE CONTACT CUSTOMER CARE\n")
+            mydb.commit()
+            at=1
+            return at 
+            break
+        except Exception :
+            print("PAYMENT FAILED")
+            at=0
+            return at
+            retry = input("Do you want to Continue (Y/N): ")
+            if retry== 'n' or retry== 'N'  :
+                break
+    
+
+def payment_Display():
+    mycursor.execute("Select* from payment")
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("\t\tPAYMENT")
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Payment_id\tRent_id\tCustomer_id\tAmount\tFine\t Total_amount\t\tpayment_method\tPayment_Date ")
+        print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t\t  ',i[6],'\t',i[7])
+
+def payment_serach():
+    print("to serach")
+    r=input("Enter the payment_id to be searched")
+    mycursor.execute("select * from payment where payment_id={}".format(r))
+    data=mycursor.fetchall()
+    if data==[]:
+        print("No record found")
+        return
+    else:
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Payment_id\tRent_id\tCustomer_id\tAmount\tFine\t Total_amount\t\tpayment_method\tPayment_Date ")
+        print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        for i in data:
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t\t  ',i[6],'\t',i[7])
+
+def payment_update():
+    while True:
+        print("To Update ")
+        z=int(input("Enter the payment ID "))
+        mycursor.execute("Select* from payment")
+        data=mycursor.fetchall()
+        f=0
+        for i in data:
+            if i[0]==z:
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+                print("Payment_id\tRent_id\tCustomer_id\tAmount\tFine\t Total_amount\t\tpayment_method\tPayment_date ")
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6])
+                print("\n")
+                f=1
+                break
+        if f==0:
+           print("Payment Id does not exist")
+           return
+        print("1.rent_id\n2.customer_id\n3.Amount\n4.Fine\n5.Total_amount\n6.payment_method\n7.Date\n8.All\n9.exit")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            na=input("Enter the New rent_id")
+            mycursor.execute("update payment set rent_id='{}' where payment_id={}".format(na,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==2:
+            e=input("Enter New Customer_id")
+            mycursor.execute("update payment  set customer_id='{}' where payment_id={}".format(e,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==3:
+            ph=input("Enter New Amount")
+            mycursor.execute("update payment  set Amount='{}' where payment_id={}".format(ph,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==4:
+            e=input("Enter New Fine")
+            mycursor.execute("update payment  set Fine='{}' where payment_id={}".format(e,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==5:
+            n=input("Enter New Total_amount ")
+            mycursor.execute("update payment  set Total_amount='{}' where payment_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==6:
+            n=input("Enter New payment_method(1.Cash,2.Net Banking,3.Check,4.Credit Card,5.Debit Card,6.UPI) ")
+            mycursor.execute("update payment  set payment_method='{}' where payment_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==7:
+            n=input("Enter New Payment_Date(ENTER IN FORMAT YYYY-MM-DD)")
+            mycursor.execute("update payment  set payment_date='{}' where payment_id={}".format(n,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==8:
+            na=input("Enter the New rent_id")
+            e=input("Enter New Customer_id")
+            ph=input("Enter New Amount")
+            fe=input("Enter New Fine")
+            to=ph+fe
+            pm=input("Enter New payment_method(1.Cash,2.Net Banking,3.Check,4.Credit Card,5.Debit Card,6.UPI)")
+            pd=input("Enter New Payment_Date(ENTER IN FORMAT YYYY-MM-DD)")
+            mycursor.execute("update payment  set rent_id='{}',customer_id='{}',Amount='{}',Fine='{}',Total_amount='{}',payment_method='{}',payment_date='{}'where payment_id={}".format(na,e,ph,fe,to,pm,pd,z))
+            if mycursor.rowcount==0:
+              print("no such record..try again")
+              return
+            print(mycursor.rowcount,"rows updated")
+            mydb.commit()
+        elif ch==9:
+            pass
+        else:
+            print("Invalid Choice")
+        c=input(" Enter Do you want to continue(Y/N)")
+        if c=='n'or c=='N':
+             break
+
+def payment_delete():
+    print("To delete")
+    z=int(input("Enter the payment ID "))
+    mycursor.execute("Select* from payment")
+    data=mycursor.fetchall()
+    f=0
+    for i in data:
+        if i[0]==z:
+            print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+            print("Payment_id\tRent_id\tCustomer_id\tAmount\tFine\t Total_amount\t\tpayment_method\tPayment_Date ")
+            print("-----------------------------------------------------------------------------------------------------------------------------------------------------")
+            print(i[0],'\t',i[1],'\t',i[2],'\t\t',i[3],'\t',i[4],'\t',i[5],'\t  ',i[6],'\t',i[7])
+            print("\n")
+            f=1
+            break
+    if f==0:
+        print("Payment Id does not exist")
+        return
+    mycursor.execute("delete from payment where payment_id={}".format(z))
+    if mycursor.rowcount==0:
+        print("no such record...try again")
+        return
+    print(mycursor.rowcount,"record deleted")
+    mydb.commit()
+
+#RATING
+
+def rating():
+    while True:
+        print("1.Share Your Experience With Us\n2.Feedback Overview")
+        rt=int(input("Enter your choice:"))
+        if rt==1:
+            f=open('RATING.txt','a')
+            print("1.*\n2.**\n3.***\n4.****\n5.*****")
+            ch=int(input("Enter your Rating"))
+            if ch==1:
+                h='*\n'
+            elif ch==2:
+                h='**\n'
+            elif ch==3:
+                h="***\n"
+            elif ch==4:
+                h="****\n"
+            elif ch==5:
+                h="*****\n"
+            else:
+                print("Invalid chocie")
+            d=input("Enter your REVIEW ")
+            o="\n______________________________________________________________________________________________________________________\n"
+            f.writelines(h)
+            f.writelines(d)
+            f.writelines(o)
+            f.close()
+        elif rt==2:
+            f=open('RATING.txt','r')
+            d=f.readlines()
+            print("------------------------RATINGS---------------------------\n")
+            for i in d:
+                print(i)
+            f.close()
+        else:
+            print("Invalid Choice")
+        cho=input("Enter Do you want to Contiune(Y/N)")
+        if cho=='n' or cho=='N':
+            break
+
+#INCOME
+
+def income():
+    import inflect
+    from babel.numbers import format_currency
+    p = inflect.engine()
+    while True:
+        print("1.Annual income\n2.six months incomes\n3.last months income")
+        ch=int(input("Enter your choice"))
+        if ch==1:
+            mycursor.execute("Select sum(total_amount) from payment")
+            data=mycursor.fetchall()
+            al=data[0][0]
+            formatted = format_currency(al, 'INR', locale='en_IN')
+            print('Annula income:',formatted)
+            word_form = p.number_to_words(al)
+            print('Annula income in words:',word_form)
+        elif ch==2:
+            mycursor.execute("select sum(total_amount) from payment where payment_date >= date_sub(curdate(), interval 6 month)")
+            data=mycursor.fetchall()
+            al=data[0][0]
+            formatted = format_currency(al, 'INR', locale='en_IN')
+            print('6 month income:',formatted)
+            word_form = p.number_to_words(al)
+            print('6 month incomein words:',word_form)
+        elif ch==3:
+            mycursor.execute("select sum(total_amount) from payment where payment_date >= date_sub(curdate(), interval 1 month)")
+            data=mycursor.fetchall()
+            al=data[0][0]
+            if al==None:
+                print('1 month income:₹0')
+                print('1 month income in words:Zero')
+                break
+            else:
+                formatted = format_currency(al, 'INR', locale='en_IN')
+                print('1 month income:',formatted)
+                word_form = p.number_to_words(al)
+                print('1 month income in words:',word_form)
+            formatted = format_currency(al, 'INR', locale='en_IN')
+            print('1 month income:',formatted)
+            word_form = p.number_to_words(al)
+            print('1 month income in words:',word_form)
+        else:
+            print("Invalid choice")
+        ch=input("Do you want to continue(Y/N)")
+        if ch=='n' or ch=='N':
+            break
+
+def helpdesk():
+   print(r""" _    _ ______ _      _____     _____  ______  _____ _  __
+ | |  | |  ____| |    |  __ \   |  __ \|  ____|/ ____| |/ /
+ | |__| | |__  | |    | |__) |  | |  | | |__  | (___ | ' / 
+ |  __  |  __| | |    |  ___/   | |  | |  __|  \___ \|  <  
+ | |  | | |____| |____| |       | |__| | |____ ____) | . \ 
+ |_|  |_|______|______|_|       |_____/|______|_____/|_|\_\"""")
+   print("customer service 24/7\n100% realiable and safe service")
+   print("For any enquiry and complants you may contact the below number and email id\n\n")
+   print("ph no:- 1234567891\n\t2468246824")
+   print("Email:- msa12334@gmail.com\n\tmsarentals12@gmail.com")
+
+#THANKS
+
+def tnq():
+    print("YOUR PAYMENT HAS BEEN CONFIRMED SUCCESSFULLY.\n")
+    print("THAN YOU FOR CHOOSING US!! \n\nWE APPRICIATE YOUR TRUST IN OUR SERVICE.!!\n\nWE HOPE YOU ENJOYED YOUR JOURNEY!! \n\nVISIT AGAIN!!")
+    print("WE VALUE YOUR OPINION. WOULD YOU BE WILLING TO RATE YOUR EXPERIENCE?(Y/N)")
+    print("FOR ANY ENQUIRIES, PLEASE CONTACT CUSTOMER CARE.")
+    rto=input("Enter Your Choice (Y/N")
+    if rto=="N" or rto=='n':
+        return
+    else:
+        writ_rating()
+        
+
+################################################################################################################################################    
+print("Menu")
+print("1.admin\n2.user")
+ch=int(input('enter your choice:'))
+if ch==1:
+      attempts = 0
+      while True:
+        pwd = input("Enter your password (or type 'EXIT' to quit): ")
+        if pwd.lower() == 'exit':
+            print("Exiting admin login...")
+            break
+        elif pwd == 'msa123':
+            print("You have logged in")
+            break
+        else:
+            print("Wrong password")
+            attempts += 1
+            if attempts == 3:
+                print("Too many failed attempts. Exiting...")
+                break
+                
+      if pwd == 'msa123':
+          while True:
+                    print("----------------------TABLES------------------------")
+                    print("1.Cars\n2.Customer\n3.Rent\n4.Retrun\n5.Payment\n6.Exit")
+                    cach=int(input("Enter your choice:"))
+                    if cach==1:
+                        print("------------------CARS TABLES-------------------")
+                        print("1.Suzuki\n2.Hyundai\n3.Toyota\n4.Volkswagen\n5.Bmw\n")
+                        cho=int(input("Enter your choice:"))
+                        if cho==1:
+                            print("----------------------SUZUKI------------------------")
+                            print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                            s_cho=int(input("Enter your choice:"))
+                            if s_cho==1:
+                                insert_suzuki()
+                            elif s_cho==2:
+                                display_suzuki()
+                            elif s_cho==3:
+                                search_suzuki()
+                            elif s_cho==4:
+                                update_suzuki()
+                            elif s_cho==5:
+                                delete_suzuki()
+                            elif s_cho==6:
+                                print("Exiting.....")
+                                break
+                            else:
+                                print("Invalid choice")
+                        elif cho==2:
+                            print("----------------------HYUNDAI------------------------")
+                            print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                            h_cho=int(input("Enter your choice:"))
+                            if h_cho==1:
+                                insert_Hyundai()
+                            elif h_cho==2:
+                                display_Hyundai()
+                            elif h_cho==3:
+                                search_Hyundai()
+                            elif h_cho==4:
+                                update_honda()
+                            elif h_cho==5:
+                                delete_Hyundai()
+                            elif h_cho==6:
+                                print("Exiting.....")
+                                break
+                            else:
+                                print("Invalid choice")
+                                
+                        elif cho==3:
+                            print("----------------------TOYOTA------------------------")
+                            print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                            t_cho=int(input("Enter your choice:"))
+                            if t_cho==1:
+                                insert_Toyota()
+                            elif t_cho==2:
+                                display_toyota()
+                            elif t_cho==3:
+                                search_toyota()
+                            elif t_cho==4:
+                                update_toyota()
+                            elif t_cho==5:
+                                delete_Toyota()
+                            elif t_cho==6:
+                                print("Exiting.....")
+                                break
+                            else:
+                                print("Invalid choice")
+                        
+                        elif cho==4:
+                            print("----------------------VOLKSWAGEN------------------------")
+                            print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                            v_cho=int(input("Enter your choice:"))
+                            if v_cho==1:
+                                insert_volkswagen()
+                            elif v_cho==2:
+                                display_volkswagen()
+                            elif v_cho==3:
+                                search_volkswagen()
+                            elif v_cho==4:
+                                update_volkswagen()
+                            elif v_cho==5:
+                                delete_volkswagen()
+                            elif v_cho==6:
+                                print("Exiting.....")
+                                break
+                            else:
+                                print("Invalid choice")
+
+                        elif cho==5:
+                            print("----------------------BMW------------------------")
+                            print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                            b_cho=int(input("Enter your choice:"))
+                            if b_cho==1:
+                                insert_Bmw()
+                            elif b_cho==2:
+                                display_Bmw()
+                            elif b_cho==3:
+                                search_bmw()
+                            elif b_cho==4:
+                                update_Bmw()
+                            elif b_cho==5:
+                                delete_BMW()
+                            elif b_cho==6:
+                                print("Exiting.....")
+                                break
+                            else:
+                                print("Invalid choice")
+                        else:
+                            print("Invalid")
+                    
+                    elif cach==2:
+                        print("----------------------CUSTOMERS------------------------")
+                        print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                        c_cho=int(input("Enter your choice:"))
+                        if c_cho==1:
+                            Customer_insert()
+                        elif c_cho==2:
+                            customer_Display()
+                        elif c_cho==3:
+                            customer_serach()
+                        elif c_cho==4:
+                            customer_update()
+                        elif c_cho==5:
+                            customer_delete()
+                        elif c_cho==6:
+                            print("Exiting.....")
+                            break
+                        else:
+                                print("Invalid choice")
+                    
+                        
+                    elif cach==3:
+                        print("----------------------RENT------------------------")
+                        print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                        re_cho=int(input("Enter your choice:"))
+                        if re_cho==1:
+                            rent_insert1()
+                        elif re_cho==2:
+                            rent_Display()
+                        elif re_cho==3:
+                            rent_serach()
+                        elif re_cho==4:
+                            rent_update()
+                        elif re_cho==5:
+                            rent_delete()
+                        elif re_cho==6:
+                            print("Exiting.....")
+                            break
+                        else:
+                                print("Invalid choice")
+                    
+                    elif cach==4:
+                        print("----------------------RETRUN------------------------")
+                        print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                        rt_cho=int(input("Enter your choice:"))
+                        if rt_cho==1:
+                            retrun_insert()
+                        elif rt_cho==2:
+                            retrun_Display()
+                        elif rt_cho==3:
+                            retrun_serach()
+                        elif rt_cho==4:
+                            retrun_update()
+                        elif rt_cho==5:
+                            retrun_delete()
+                        elif rt_cho==6:
+                            print("Exiting.....")
+                            break
+                        else:
+                                print("Invalid choice")
+
+                    elif cach==5:
+                        print("----------------------PAYMENT------------------------")
+                        print("1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\n6.Exit\n")
+                        py_cho=int(input("Enter your choice:"))
+                        if py_cho==1:
+                            payment_insert()
+                        elif py_cho==2:
+                            payment_Display()
+                        elif py_cho==3:
+                            payment_serach()
+                        elif py_cho==4:
+                            payment_update()
+                        elif py_cho==5:
+                            payment_delete()
+                        elif py_cho==6:
+                            print("Exiting.....")
+                            break
+                        else:
+                                print("Invalid choice")
+                    elif cach==6:
+                            break
+                    cho=input('do you want to try again(Y/N)')
+                    if cho=='n' or cho=='N' :
+                        break
+                        
+          
+
+elif ch==2:
+    print("⣿⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣿")
+    print("⣿⣿⣿⡿⠿⣿⢡⣶⣶⡌⠛⣛⠛⣿⣿⣿")
+    print("⣿⣿⡏⢰⣷⣆⠈⢻⣿⢡⣾⣿⣧⢸⣿⣿")
+    print("⣿⣿⠧⠘⣿⣿⣧⡈⢿⣿⡿⠟⢁⡚⠻⣿")
+    print("⣿⡇⢰⣾⣿⣿⣿⠇⠀⢡⣴⣿⣾⣿⠓⣼")
+    print("⣿⣧⡀⠛⠉⢉⣤⣶⣧⠈⢿⣯⣾⠁⢺⣿")
+    print("⣿⣿⣿⡏⠀⣿⣿⠆⢻⠅⠀⠈⢫⠃⢸⣿")
+    print("⣿⡿⠟⢁⣤⣉⣁⣄⠀⠄⠀⣵⣶⣾⣿⣿")
+    print("⣤⣴⣾⣿⣿⣿⣿⣿⣷⣶⣿⣿⣿⣿⣿⣿")
+    print("_          ________ _      _____ ____  __  __ ______   _______ ____")
+    print("\\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____| |__   __/ __ \\.")
+    print(" \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__       | | | |  | |")
+    print("  \\ \\/  \\/ / |  __| | |   | |   | |  | | |\\/| |  __|      | | | |  | |")
+    print("   \\  /\\  /  | |____| |___| |___| |__| | |  | | |____     | | | |__| |")
+    print("    \\/  \\/   |______|______\\_____\\____/|_|  |_|______|    |_|  \\____/")
+    print("__  __  _____              _____          _____      _____  ______ _   _ _______       _       _____   _")
+    print("|  \\/  |/ ____|  /\\        / ____|   /\\   |  __ \\    |  __ \\|  ____| \\ | |__   __|/\\   | |     / ____| | |")
+    print("| \\  / | (___   /  \\      | |       /  \\  | |__) |   | |__) | |__  |  \\| |  | |  /  \\  | |    | (___   | |")
+    print("| |\\/| |\\___ \\ / /\\ \\     | |      / /\\ \\ |  _  /    |  _  /|  __| | . ` |  | | / /\\ \\ | |     \\___ \\  | |")
+    print("| |  | |____) / ____ \\    | |____ / ____ \\| | \\ \\    | | \\ \\| |____| |\\  |  | |/ ____ \\| |____ ____) | |_|")
+    print("|_|  |_|_____/_/    \\_\\    \\_____/_/    \\_\\_|  \\_\\   |_|  \\_\\______|_| \\_|  |_/_/    \\_\\______|_____/  (_)")
+    print("⣿⣿⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+    print("⣿⣿⣿⣿⡏⠀⢀⣨⣿⣟⣻⢿⣿⣿⣿⣿")
+    print("⣿⣿⣿⣿⢣⣾⣿⣿⣿⣿⣿⣷⣮⡉⠉⢻")
+    print("⡿⠉⠙⠇⣿⡃⠠⢸⣿⣿⡿⠿⣿⣧⢀⣼")
+    print("⣿⡀⠀⠀⠻⣭⣿⣟⡉⢽⡔⠀⡸⡿⣼⣿")
+    print("⣿⣷⣄⠀⠀⠀⠉⠛⠿⠿⠿⠽⢟⣵⣿⣿")
+    print("⣿⣿⣧⢿⣿⣿⣿⣿⣿⣿⣧⠀⠀⢸⣿⣿")
+    print("⣿⣿⣿⠈⠻⢿⣿⣿⣿⡿⠋⢠⣀⣼⣿⣿")
+    print("⣿⣿⣿⡄⠀⠀⣶⣶⡆⠀⠀⣾⣿⣿⣿⣿")
+    print("⣿⣿⣿⣿⣶⣾⣿⣿⣿⣶⣾⣿⣿⣿⣿⣿")
+    print("\n")
+    print("\n")
+    print("✤WELCOME TO MSA CAR RENTAL SYSTEMヾ🔛".upper())
+    print("===================================")
+    print("\n")
+    print("🞺 Car Rental🔄 – Search, Compare & Save\n")
+    print("🞺 Looking for best car rentals⭲\n")
+    print("🞺 Looking for Short-term Car Rentals?\n")
+    print("🞺 THEN YOU ARE IN THE RIGHT SPOT ⟰\n")
+    print("🞺 Choose Your Favourite Car & Enjoy Your Drive!\n")
+    print("🞺 We have the best high quality car options\n")
+    print("🞺 Free cancellations on most bookings\n\n🞺60,000+ locations\n\n🞺Customer support in 30+ languages\n")
+    print("🞺 We provide 24/7 customer support, 100% trip protection and infinite kilometers ∞\n\n")
+    print("==========================================================================================================================================")
+    print("➢How to Rent a car?\n")
+    print("1) Log onto MSA or use the app ⟹")
+    print("2) Select city, date and time ⟴")
+    print("3) Pick a car of your choice and enjoy your ride ◑﹏◐\n")
+    print(r"""
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡤⢤⣶⣶⣶⣶⣶⣒⣒⣀⣺⣿⣿⠿⢶⣶⣶⣶⣦⣤⣤⣤⣄⣀⣀⣀⣀⡀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠴⠚⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠲⠦⢤⣉⠙⣿⣿⣿⣟⢿⣿⠿⠿⠿⢿⣿
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣷⡦⠞⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠈⠛⢿⣿⡀⠀⠀⠀⠻
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⠤⢴⣿⣉⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠙⣿⣄⡀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⡶⠞⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠓⠒⠒⠢⠤⠤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⢠⠤⠤⠤⣤⣾⠀⠙⢦⡀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⣾⣛⣩⢴⣿⠿⠶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠙⠒⠒⠒⠤⠤⢤⣤⣾⢿⣴⢏⣀⣀⣤⡼⠻⡆⠀⠈⢷
+    ⠀⠀⠀⠀⠀⢀⣴⠋⠁⠀⠀⠀⠀⠙⠓⠲⠤⠬⠷⠀⠀⢀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠤⡞⠉⠀⠀⠹⡟⠀⠀⠀⠀⠀⢱⠀⢠⣼
+    ⠀⠀⠀⣀⡴⠋⠈⢙⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠢⠤⢄⣀⣠⠴⠛⣋⣠⠴⠒⠉⠉⢉⣲⠶⠀⣀⡠⠤⠒⠊⠉⠁⠀⠀⠀⠠⠀⡂⠐⢹⠂⠀⠀⠀⠀⣼⢰⣿⣿
+    ⡀⣠⣼⠏⠀⠀⣰⠟⠦⢤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠒⠒⠒⠋⣉⠤⠒⠋⠁⠀⠀⠀⠀⡀⠠⠀⠈⠀⠁⠀⠀⠀⢸⠀⠀⠀⠀⢀⣯⣼⣿⣿
+    ⡟⠋⠹⢤⣠⠞⠁⠀⠀⠀⠀⠈⠉⠐⠲⠤⢄⣀⡀⠀⠀⠀⠀⣀⠤⠤⠤⠤⠤⣄⣀⣀⠀⢀⡠⠖⠋⠀⠀⠀⠄⡠⢐⠤⠀⠂⠀⣀⣀⡀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢸⣿⣿⣿⣿
+    ⢻⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⢒⡶⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢦⠀⠀⠀⠈⠈⠀⠀⠀⠀⢀⣴⣿⡿⣿⡝⣆⠀⠀⠀⠴⣽⠤⠞⣠⣵⠿⣻⣿⣿⠈
+    ⢿⣿⣿⠶⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⠇⠀⠀⠀⠀⣀⣀⣤⣤⣾⣿⢿⡆⢸⣧⢹⠀⠄⣪⣶⣿⣴⠟⢋⣥⠴⢻⣿⠏⠀
+    ⢸⣿⣿⡇⠀⠘⣿⣶⣦⣤⣀⡀⠀⠀⠀⠀⠀⠀⠈⠑⠲⠤⢤⣀⣀⡀⠀⠀⠀⠀⠀⠀⣀⣀⣞⣀⣠⣤⣾⣿⣿⣿⣿⣿⣿⢻⢸⣿⣾⣿⣾⣤⣾⣿⠿⢋⡡⠞⠉⠉⠉⠉⠀⠀⠀
+    ⣼⡟⣿⡇⠀⠀⢹⣄⠈⠙⠒⠯⣽⣶⢶⣤⣤⣄⣀⣀⠀⠀⠀⠀⠈⠙⠻⠿⠿⠿⠿⠿⠿⠛⠛⠛⢉⣉⣽⠶⣿⠟⣿⣿⣧⣿⣾⣿⣿⡇⢹⡿⠋⣡⠖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⣇⠳⣼⣧⠴⠛⠉⠉⠉⠒⣦⣤⣀⡀⠀⠀⠉⠙⢦⠀⠉⠉⢙⣷⣶⠒⠒⠒⠶⡶⠶⠶⢶⣤⠖⠚⠉⠁⠀⣰⣷⠾⣿⢿⢥⣼⣾⣿⣿⠃⣸⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠈⠳⣌⣿⢦⣄⠀⢀⣴⣿⣿⣷⣿⡯⣗⠲⠤⣀⡈⣇⠀⠀⠻⡄⠈⣷⠀⠀⠀⡿⠒⠶⠾⢿⠀⠀⠀⢠⣾⡏⠁⣸⡇⢸⡸⢠⡌⢡⣿⠴⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠈⠙⠳⢿⣙⠺⢽⣿⣮⣿⣿⠗⠋⠀⠀⠀⠉⡿⠀⠀⣀⣹⣿⣯⣤⣶⣚⣛⣒⣛⣓⣿⠀⠀⠀⢽⣿⣶⣶⡏⢧⣼⣷⡿⢁""")
+    print("\n")
+    print("_________________________________________________________________________________________________________________________________________________\n")
+    print("1. Old Customer\n2.New Customer")
+    attempts = 0
+    cy=int(input("Enter your choice:"))
+    if cy==1:
+        attempts=customer_verify()
+        print(attempts)
+    elif cy==2:
+        Customer_insert()
+        attempts = 1
+    else:
+        print("Invalid Choice")
+    if attempts==1:
+        while True:
+            print("1.Select Your Car\n2.Rent a Car \n3.Return Your Car \n4.Payment\n5.Rating\n6.Finanacial Dashborad\n7.Customer Support\n8.Exit")
+            u_ch=int(input("Enter Your Choice :"))
+            if u_ch==1:
+                print("------------------CARS TABLES-------------------")
+                print("1.Suzuki\n2.Hyundai\n3.Toyota\n4.Volkswagen\n5.Bmw")
+                cho=int(input("Enter your choice:"))
+                if cho==1:
+                    display_suzuki()
+                elif cho==2:
+                    display_Hyundai()
+                elif cho==3:
+                    display_toyota()
+                elif cho==4:
+                    display_volkswagen()
+                elif cho==5:
+                    display_Bmw()
+                else:
+                    print("Invalid choice")
+                    
+            elif u_ch==2:
+                print ("1.Looking To  Rent a Car\n2.Check your Rent Details ")
+                ur_ch=int(input("Enter your choice:"))
+                if ur_ch==1:
+                    rent_insert1()
+                elif ur_ch==2:
+                    rent_serach()
+                else:
+                    print("Invalid choice")   
+                
+            elif u_ch==3:
+                print ("1.Return your Car\n2.Check your Return Details ")
+                ure_ch=int(input("Enter your choice:"))
+                if ure_ch==1:
+                    retrun_insert()
+                elif ure_ch==2:
+                    retrun_serach()
+                else:
+                    print("Invalid Choice")
+            
+            elif u_ch==4:
+                print("1.Make Your Payment\n2.View your Payment Details ")
+                ur_ch=int(input("Enter your choice:"))
+                if ur_ch==1:
+                    at=payment_insert()
+                    if at==1:
+                        tnq()
+                elif ur_ch==2:
+                    payment_serach()
+                else:
+                    print("Invalid Choice")
+               
+            elif u_ch==5:
+                rating()
+            elif u_ch==6:
+                income()
+            elif u_ch==7:
+                helpdesk()
+            elif u_ch==8:
+                break
+            else:
+                print("Invalid Choice")
+            print("DO YOU WANT TO CONTIUNE(Y/N)")
+            ch=input("Enter Your Choice")
+            if ch=='n' or ch=='N':
+                break
+            
+    
+        
+        
+            
+            
+        
+        
+    
+        
+        
+    
